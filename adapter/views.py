@@ -49,7 +49,7 @@ class CheckConnectionView(APIView):
                 return Response("No connection", status.HTTP_503_SERVICE_UNAVAILABLE)
             serializer = self.serializer_class(json_response)
             return Response(serializer.data, status.HTTP_200_OK)
-        return Response("Say 'ping'", status.HTTP_400_BAD_REQUEST)
+        return Response("Input parameter in url ?msg=ping", status.HTTP_400_BAD_REQUEST)
 
 
 class GetCurrentTimeView(APIView):
