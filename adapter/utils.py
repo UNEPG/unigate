@@ -19,24 +19,23 @@ import os
 
 
 def send_request_to_unisat(method, url, json_class=None, params=None):
-    request_url = f'{UNISAT_DOMAIN}/{url}'
+    request_url = f'{UNISAT_DOMAIN}{url}'
 
     if not params:
         params = [None, None]
 
     if params[1]:
         request_url = request_url + f'?{params[0]}={params[1]}'
-
     try:
         json_data = getattr(requests, f"{method}")(request_url).json()
+
+        if json_class:
+            try:
+                json_data = getattr(azt_satellite_models, json_class)(**json_data)
+            except pydantic.error_wrappers.ValidationError:
+                return False
     except Exception as e:
         return False
-
-    if json_class:
-        try:
-            json_data = getattr(azt_satellite_models, json_class)(**json_data)
-        except pydantic.error_wrappers.ValidationError:
-            return False
 
     return json_data
 
