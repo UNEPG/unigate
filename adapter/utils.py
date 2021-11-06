@@ -20,7 +20,6 @@ import os
 
 def send_request_to_unisat(method, url, json_class=None, params=None):
     request_url = f'{UNISAT_DOMAIN}{url}'
-
     if not params:
         params = [None, None]
 

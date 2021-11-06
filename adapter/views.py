@@ -58,7 +58,7 @@ class GetCurrentTimeView(APIView):
     def get(self, request):
         azt_view_utils.check_auth(request)
 
-        json_response = azt_view_utils.send_request_to_unisat('get', 'now', None, None)
+        json_response = azt_view_utils.send_request_to_unisat('get', '/now', None, None)
         if not json_response or json_response.get('detail', "") == 'Not Found':
             return Response("No connection", status.HTTP_503_SERVICE_UNAVAILABLE)
         serializer = self.serializer_class(json_response)
