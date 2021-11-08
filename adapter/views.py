@@ -260,3 +260,18 @@ class CameraDataView(azt_view_utils.AztViewMixin):
             return Response("Unisat didn't answer and no object in db. Try later", status.HTTP_503_SERVICE_UNAVAILABLE)
 
         return self.get_unisat_data(last_object)
+
+    camera_config = openapi.Parameter(f'camera', in_=openapi.IN_QUERY, description=f'Get camera (values=[0, 1])',
+                                      type=openapi.TYPE_STRING)
+
+    @swagger_auto_schema(manual_parameters=[camera_config], )
+    def retrieve(self, request, *args, **kwargs):
+        class_name = azt_view_utils.str_to_class(self.model)
+        try:
+            obj = self.check_last_obj()
+            serializer = self.serializer_class(obj)
+            return Response(serializer.data, status.HTTP_200_OK)
+        except class_name.DoesNotExist:
+            return Response(f'DoesNotExist. {self.obj} does not exist in {self.model}', status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(f"Error, wrong data: {str(e)}",  status.HTTP_400_BAD_REQUEST)

@@ -22,12 +22,11 @@ from django.conf import settings
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="UniGate",
-      default_version='v1',
-      description="This is a unigate site API",
-      terms_of_service="https://www.unigate.kz/policies/terms/",
-      contact=openapi.Contact(email="example@snippets.local"),
-      license=openapi.License(name="Test License"),
+      title="UDCCC OpenAPI",
+      default_version='0.0.17',
+      description="UDCCC is a Child project of UNEPG 2021 aims to Enable Participants Remote Access to the UniSat with less panic and ease.",
+      terms_of_service="https://azat.ai",
+
    ),
    public=True,
    permission_classes=(),
@@ -37,13 +36,14 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('adapter.urls')),
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
-if settings.DEBUG:
-    urlpatterns += [
-        path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    ]
+# if settings.DEBUG:
+#     urlpatterns += [
+#         path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+#     ]
