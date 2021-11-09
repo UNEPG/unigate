@@ -26,13 +26,19 @@ https://auth.azt.one/api/login/
 
 using Postman or another http agent
 
+with test account:
+```
+email: test@test.com
+password: test_123
+```
+
 ![alt text](read_me_static/1.png "Title")
 
 and get *access_token* or *refresh_token*
 
 Then go to the 
 ```
-https://domen.com/docs/
+https://unisat.xlink.kz/docs/
 ```
 ![alt text](read_me_static/2.png "Title")
 
